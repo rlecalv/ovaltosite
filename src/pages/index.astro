@@ -5,33 +5,59 @@ import Footer from '../components/Footer.astro';
 import { Icon } from 'astro-icon/components';
 
 const values = [
-  {
-    title: "Excellence",
-    description: "Chaque projet est mené avec exigence et ambition afin d’offrir des réalisations immobilières de haute qualité.",
-    icon: "heroicons:star"
-  },
-  {
-    title: "Fidélité et fiabilité",
-    description: "La transparence, la rigueur et l’engagement permettent d’établir un climat de confiance pérenne.",
-    icon: "heroicons:shield-check"
-  },
-  {
-    title: "Rigueur",
-    description: "Chaque acquisition, développement et gestion sont menés avec une discipline stricte et une méthodologie éprouvée.",
-    icon: "heroicons:document-magnifying-glass"
-  },
-  {
-    title: "Efficacité et agilité",
-    description: "L’adaptabilité et la réactivité permettent d’anticiper les tendances et d’optimiser chaque opportunité.",
-    icon: "heroicons:bolt"
-  }
+// ... (no changes here)
 ];
 
 const stats = [
-  { label: "Années d'expérience", value: "40" },
-  { label: "Sociétés", value: "10" },
-  { label: "Domaines d'activité", value: "5" },
-  { label: "Collaborateurs", value: "350" }
+// ... (no changes here)
+];
+
+const team = [
+  {
+    name: "Raphaël Le Calvé",
+    url: "https://www.linkedin.com/in/raphael-le-calv%C3%A9-a0a4b02a6/",
+    photo: "/images/team/Raphael-Le-Calve_IMG_4438.jpg"
+  },
+  {
+    name: "Fabrice Paget-Domet",
+    url: "https://www.linkedin.com/in/fabrice-paget-domet-34ba205a/",
+    photo: "/images/team/Fabrice-Paget-Domet_IMG_4513.jpg"
+  },
+  {
+    name: "Coraline Paget-Domet",
+    url: "https://www.linkedin.com/in/coraline-paget-domet-4027855a/",
+    photo: "https://i.pravatar.cc/150?u=cpd"
+  },
+  {
+    name: "Océane Neury",
+    url: "https://www.linkedin.com/in/oc%C3%A9ane-neury-478137231/",
+    photo: "https://i.pravatar.cc/150?u=on"
+  },
+  {
+    name: "Mohamed Azroumbaze",
+    url: "https://www.linkedin.com/in/mohamed-azroumbaze-5794769/",
+    photo: "https://i.pravatar.cc/150?u=ma"
+  },
+  {
+    name: "Matis Bot",
+    url: "https://www.linkedin.com/in/matis-bot/",
+    photo: "https://i.pravatar.cc/150?u=mb"
+  },
+  {
+    name: "Loïc Nabédé",
+    url: "https://www.linkedin.com/in/lo%C3%AFc-nab%C3%A9d%C3%A9/",
+    photo: "/images/team/Photo LKD.jpg"
+  },
+  {
+    name: "Sophie Alard",
+    url: "https://www.linkedin.com/in/sophie-alard-51a57b56/",
+    photo: "https://i.pravatar.cc/150?u=sa"
+  },
+  {
+    name: "Paul Pillet",
+    url: "https://www.linkedin.com/in/paul-pillet-8324411b2/",
+    photo: "https://i.pravatar.cc/150?u=pp"
+  }
 ];
 
 const bars = [1, 2, 3, 4, 5, 6, 7, 8];
@@ -157,10 +183,10 @@ const bars = [1, 2, 3, 4, 5, 6, 7, 8];
               </a>
               <div class="flex items-center gap-5">
                 <div class="flex -space-x-3">
-                  {[1, 2, 3, 4].map((i) => (
-                    <div class="w-12 h-12 rounded-full border-4 border-white bg-slate-100 overflow-hidden shadow-sm">
-                      <img src={`https://i.pravatar.cc/150?u=ovalt${i}`} alt="Expert" class="w-full h-full object-cover" />
-                    </div>
+                  {team.map((member) => (
+                    <a href={member.url} target="_blank" class="w-12 h-12 rounded-full border-4 border-white bg-slate-100 overflow-hidden shadow-sm hover:scale-110 hover:z-30 transition-all group/member relative" title={member.name}>
+                      <img src={member.photo} alt={member.name} class="w-full h-full object-cover grayscale group-hover/member:grayscale-0 transition-all" />
+                    </a>
                   ))}
                 </div>
                 <div class="text-[10px] text-slate-500 font-bold uppercase tracking-widest leading-loose">
