@@ -1,0 +1,63 @@
+---
+import { Icon } from 'astro-icon/components';
+
+const navItems = [
+  { name: 'Accueil', href: '/' },
+  { name: 'Notre vision', href: '/#vision' },
+  { name: 'Nos sociétés', href: '/societes' },
+  { name: 'Nos réalisations', href: '/realisations' },
+  { name: 'Contact', href: '/#contact' },
+];
+---
+
+<header class="fixed w-full z-50 bg-white/95 backdrop-blur-md border-b border-slate-100">
+  <div class="max-w-screen-2xl mx-auto px-6 lg:px-12">
+    <div class="flex justify-between items-center h-24">
+      <div class="flex-shrink-0 flex items-center">
+        <a href="/" class="flex items-center gap-3">
+          <img class="h-16 w-auto" src="/logo.png" alt="Ovalto Immobilier" />
+        </a>
+      </div>
+      
+      <nav class="hidden md:flex space-x-10">
+        {navItems.map((item) => (
+          <a
+            href={item.href}
+            class="text-[11px] font-bold text-primary/80 hover:text-primary transition-colors uppercase tracking-[0.2em]"
+          >
+            {item.name}
+          </a>
+        ))}
+      </nav>
+
+      <div class="md:hidden">
+        <button type="button" class="text-primary" id="mobile-menu-button">
+          <Icon name="heroicons:bars-3" class="w-8 h-8" />
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <div class="hidden md:hidden bg-white border-b border-slate-200" id="mobile-menu">
+    <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+      {navItems.map((item) => (
+        <a
+          href={item.href}
+          class="block px-3 py-2 text-base font-medium text-slate-600 hover:text-primary transition-colors"
+        >
+          {item.name}
+        </a>
+      ))}
+    </div>
+  </div>
+</header>
+
+<script>
+  const button = document.getElementById('mobile-menu-button');
+  const menu = document.getElementById('mobile-menu');
+
+  button?.addEventListener('click', () => {
+    menu?.classList.toggle('hidden');
+  });
+</script>

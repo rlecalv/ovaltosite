@@ -1,0 +1,58 @@
+---
+import { Icon } from 'astro-icon/components';
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="bg-primary text-white pt-16 pb-8">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+      <div>
+        <img src="/logo.png" alt="Ovalto Immobilier" class="h-16 w-auto brightness-0 invert mb-6" />
+        <p class="text-slate-300 text-sm leading-relaxed max-w-sm">
+          Ovalto Immobilier est une marque du groupe Ovalto, family office privé investi dans l'immobilier tertiaire et résidentiel à Paris et dans les Hauts-de-Seine.
+        </p>
+      </div>
+      
+      <div>
+        <h3 class="text-lg font-serif font-bold mb-6 text-accent">Liens essentiels</h3>
+        <ul class="space-y-4">
+          <li><a href="/" class="text-slate-300 hover:text-white transition-colors">Accueil</a></li>
+          <li><a href="/#vision" class="text-slate-300 hover:text-white transition-colors">Notre vision</a></li>
+          <li><a href="/societes" class="text-slate-300 hover:text-white transition-colors">Nos sociétés</a></li>
+          <li><a href="/realisations" class="text-slate-300 hover:text-white transition-colors">Nos réalisations</a></li>
+          <li><a href="/#contact" class="text-slate-300 hover:text-white transition-colors">Contact</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="text-lg font-serif font-bold mb-6 text-accent">Nous contacter</h3>
+        <ul class="space-y-4">
+          <li class="flex items-center gap-3 text-slate-300">
+            <Icon name="heroicons:envelope" class="w-5 h-5 text-accent" />
+            <a href="mailto:contact@ovalto-immobilier.fr" class="hover:text-white transition-colors">contact@ovalto-immobilier.fr</a>
+          </li>
+          <li class="flex items-center gap-3 text-slate-300">
+            <Icon name="heroicons:phone" class="w-5 h-5 text-accent" />
+            <a href="tel:0184190240" class="hover:text-white transition-colors">01 84 19 02 40</a>
+          </li>
+          <li class="flex items-center gap-3 text-slate-300">
+            <Icon name="heroicons:map-pin" class="w-5 h-5 text-accent" />
+            <span>Paris & Hauts-de-Seine</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="border-t border-slate-700 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+      <p class="text-slate-400 text-xs">
+        &copy; {currentYear} Ovalto Immobilier. Tous droits réservés.
+      </p>
+      <div class="flex gap-6">
+        <a href="#" class="text-slate-400 hover:text-white text-xs">Mentions légales</a>
+        <a href="#" class="text-slate-400 hover:text-white text-xs">Politique de confidentialité</a>
+      </div>
+    </div>
+  </div>
+</footer>
+

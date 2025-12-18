@@ -1,0 +1,189 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { Icon } from 'astro-icon/components';
+
+// Fetch des données réelles depuis l'API Horizon
+const API_URL = "https://www.vpfimmo.fr/api/public/realisations/v2/";
+const BASE_URL = "https://www.vpfimmo.fr";
+
+let realisations = [];
+try {
+  const response = await fetch(API_URL);
+  const data = await response.json();
+  realisations = data.results.map((real) => ({
+    title: real.nom,
+    adresse: real.adresse,
+    location: `${real.code_postal} ${real.ville}`,
+    description: `Acquisition réalisée le ${new Date(real.date_acquisition).toLocaleDateString('fr-FR', { year: 'numeric', month: 'long' })}. Surface totale de ${real.surface_totale} m².`,
+    image: real.photo_url ? `${BASE_URL}${real.photo_url}` : "/logo.png",
+    thumbnail: real.thumbnail_url ? `${BASE_URL}${real.thumbnail_url}` : "/logo.png"
+  }));
+} catch (error) {
+  console.error("Erreur lors de la récupération des réalisations :", error);
+  // Fallback au cas où l'API serait indisponible au build
+  realisations = [
+    {
+      title: "12 Rue Vivienne",
+      adresse: "12 Rue Vivienne",
+      location: "75002 Paris",
+      description: "Immeuble de bureaux d'exception géré par le groupe.",
+      image: "https://images.unsplash.com/photo-1559128010-7c1ad6e1b6a5?q=80&w=2073&auto=format&fit=crop"
+    }
+  ];
+}
+
+const bars = [1, 2, 3, 4, 5, 6, 7, 8];
+---
+
+<Layout title="Nos Réalisations" description="Patrimoine immobilier d'exception géré par Ovalto Immobilier à Paris et dans les Hauts-de-Seine.">
+  <Header />
+  
+  <main class="pt-24">
+    <!-- Hero Section -->
+    <section class="bg-primary py-24 relative overflow-hidden">
+      <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+        <h1 class="text-5xl md:text-7xl font-serif font-bold text-white mb-6 animate-reveal">Nos Réalisations</h1>
+        <p class="text-xl text-slate-300 max-w-3xl leading-relaxed animate-reveal" style="animation-delay: 0.2s">
+          Un patrimoine d'exception composé de {realisations.length} actifs stratégiques au cœur de Paris et de l'Île-de-France.
+        </p>
+      </div>
+      <!-- Signature Decor -->
+      <div class="absolute top-0 left-0 w-full h-full opacity-10 flex items-center justify-center pointer-events-none">
+        <div class="flex gap-12 rotate-45 scale-150">
+          {bars.map((i) => (
+            <div class="w-8 bg-accent" style={`height: ${i * 200}px`}></div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Projects List -->
+    <section class="py-32 bg-white">
+      <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        <div class="space-y-32">
+          {realisations.map((real, index) => (
+            <div class={`flex flex-col lg:flex-row items-center gap-20 reveal-on-scroll ${index % 2 !== 0 ? 'lg:flex-row-reverse' : ''}`}>
+              <div class="w-full lg:w-1/2 group">
+                <div class="aspect-[4/3] overflow-hidden rounded-sm relative shadow-2xl bg-slate-100">
+                  <img src={real.image} alt={real.title} class="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-110" loading="lazy" />
+                  <div class="absolute inset-0 bg-primary/10 group-hover:bg-transparent transition-all"></div>
+                </div>
+              </div>
+              <div class="w-full lg:w-1/2">
+                <div class="flex items-center gap-4 text-accent font-bold uppercase tracking-[0.3em] text-[10px] mb-6">
+                  <span class="w-12 h-[1px] bg-accent"></span>
+                  Réalisation Patrimoniale
+                </div>
+                <h2 class="text-4xl md:text-5xl font-serif font-bold text-primary mb-4">{real.title}</h2>
+                <div class="text-accent text-sm font-bold mb-4">{real.adresse}</div>
+                <div class="flex items-center gap-3 text-slate-500 mb-8 font-medium">
+                  <Icon name="heroicons:map-pin" class="w-5 h-5 text-accent" />
+                  {real.location}
+                </div>
+                <p class="text-lg text-slate-600 leading-relaxed mb-10 font-light">
+                  {real.description}
+                </p>
+                <div class="flex gap-1">
+                  {bars.slice(0, 4).map((i) => (
+                    <div class="w-1 bg-accent/20" style={`height: ${i * 8}px`}></div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Inventory Grid -->
+    <section class="py-32 bg-slate-50 relative overflow-hidden border-t border-slate-200">
+      <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+        <div class="text-center max-w-3xl mx-auto mb-20 reveal-on-scroll">
+          <h2 class="text-accent uppercase tracking-[0.4em] text-[10px] font-bold mb-6">Expertise</h2>
+          <h3 class="text-4xl md:text-5xl font-serif font-bold text-primary">Gestion et Valorisation Active</h3>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 reveal-on-scroll">
+          <div class="p-10 bg-white shadow-sm border-t-4 border-accent transition-transform hover:-translate-y-2">
+            <h4 class="text-xl font-serif font-bold text-primary mb-4 uppercase tracking-wider">Acquisition</h4>
+            <p class="text-slate-600 text-sm leading-relaxed">Identification d'actifs stratégiques dans les zones Prime (QCA, Triangle d'Or) avec un focus sur la qualité architecturale.</p>
+          </div>
+          <div class="p-10 bg-white shadow-sm border-t-4 border-accent transition-transform hover:-translate-y-2">
+            <h4 class="text-xl font-serif font-bold text-primary mb-4 uppercase tracking-wider">Rénovation</h4>
+            <p class="text-slate-600 text-sm leading-relaxed">Restructuration lourde et optimisation énergétique pour répondre aux nouveaux standards de confort et d'usage.</p>
+          </div>
+          <div class="p-10 bg-white shadow-sm border-t-4 border-accent transition-transform hover:-translate-y-2">
+            <h4 class="text-xl font-serif font-bold text-primary mb-4 uppercase tracking-wider">Gestion</h4>
+            <p class="text-slate-600 text-sm leading-relaxed">Property management intégré pour garantir une relation locative d'excellence et la pérennité du patrimoine.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section id="contact" class="py-40 bg-primary relative overflow-hidden">
+      <div class="absolute inset-0 flex items-end justify-center gap-12 opacity-5 pointer-events-none">
+        {bars.map((i) => (
+          <div class="w-24 bg-white" style={`height: ${i * 15}%`}></div>
+        ))}
+      </div>
+
+			<div class="relative z-10 max-w-5xl mx-auto px-6 text-center reveal-on-scroll">
+				<h2 class="text-6xl md:text-8xl font-serif font-bold text-white mb-10 leading-tight">Valorisons <br/><span class="text-accent italic">votre patrimoine</span> ensemble.</h2>
+				<p class="text-xl md:text-2xl text-slate-300 mb-16 leading-relaxed font-light max-w-3xl mx-auto">
+					Contactez nos experts pour une gestion immobilière d'excellence à Paris.
+				</p>
+				<div class="flex flex-col sm:flex-row justify-center gap-8">
+					<a href="mailto:contact@ovalto-immobilier.fr" class="group flex items-center justify-center gap-4 px-12 py-6 bg-accent text-primary font-bold rounded-sm hover:bg-accent-light transition-all shadow-2xl shadow-black/40 text-lg">
+						<Icon name="heroicons:envelope" class="w-6 h-6" />
+						contact@ovalto-immobilier.fr
+            <Icon name="heroicons:arrow-long-right" class="w-5 h-5 group-hover:translate-x-2 transition-transform" />
+					</a>
+				</div>
+			</div>
+		</section>
+  </main>
+  
+  <Footer />
+</Layout>
+
+<script>
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('active');
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+</script>
+
+<style>
+	@keyframes reveal {
+		from { opacity: 0; transform: translateY(30px); filter: blur(10px); }
+		to { opacity: 1; transform: translateY(0); filter: blur(0); }
+	}
+	.animate-reveal {
+		animation: reveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+		opacity: 0;
+	}
+  .reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+    filter: blur(10px);
+  }
+  .reveal-on-scroll.active {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+</style>

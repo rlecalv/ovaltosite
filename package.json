@@ -1,0 +1,25 @@
+{
+  "name": "mad-mass",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@fontsource/inter": "^5.2.8",
+    "@fontsource/playfair-display": "^5.2.8",
+    "@iconify-json/heroicons": "^1.2.3",
+    "@tailwindcss/vite": "^4.1.18",
+    "astro": "^5.16.6",
+    "astro-icon": "^1.1.5",
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.23.26",
+    "lucide-astro": "^0.556.0",
+    "motion-number": "^1.0.0",
+    "tailwind-merge": "^3.4.0",
+    "tailwindcss": "^4.1.18"
+  }
+}
