@@ -1,0 +1,38 @@
+services:
+  ovaltosite:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ovaltosite-app
+    restart: unless-stopped
+    networks:
+      - traefik-network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik-network"
+      
+      # Route HTTP avec redirection vers HTTPS
+      - "traefik.http.routers.ovaltosite.rule=Host(`www.${DOMAIN}`) || Host(`${DOMAIN}`)"
+      - "traefik.http.routers.ovaltosite.entrypoints=web"
+      - "traefik.http.routers.ovaltosite.middlewares=ovaltosite-redirect"
+      - "traefik.http.routers.ovaltosite.priority=1"
+      
+      # Route HTTPS principale
+      - "traefik.http.routers.ovaltosite-secure.rule=Host(`www.${DOMAIN}`) || Host(`${DOMAIN}`)"
+      - "traefik.http.routers.ovaltosite-secure.entrypoints=websecure"
+      - "traefik.http.routers.ovaltosite-secure.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.ovaltosite-secure.service=ovaltosite"
+      - "traefik.http.routers.ovaltosite-secure.priority=10"
+      
+      # Service definition
+      - "traefik.http.services.ovaltosite.loadbalancer.server.port=80"
+      
+      # Middleware de redirection HTTP vers HTTPS local
+      - "traefik.http.middlewares.ovaltosite-redirect.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.ovaltosite-redirect.redirectscheme.permanent=true"
+
+networks:
+  traefik-network:
+    name: traefik-network
+    external: true
+
