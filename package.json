@@ -21,5 +21,9 @@
     "motion-number": "^1.0.0",
     "tailwind-merge": "^3.4.0",
     "tailwindcss": "^4.1.18"
+  },
+  "devDependencies": {
+    "chrome-launcher": "^1.2.1",
+    "puppeteer": "^24.33.1"
   }
 }
